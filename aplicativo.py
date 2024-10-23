@@ -131,17 +131,16 @@ def atualiza_grafico(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao6: 
     fig.update_layout(
 
         yaxis=dict(
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             side='left',
-            # showticklabels=False,
-            range=[-225, 370]
+            range=[-225, 370],
         ),
 
         yaxis2=dict(
             # title = 'Data',
-            titlefont=dict(color='black'),
-            tickfont=dict(color='black'),
+            titlefont={"color": 'black'},
+            tickfont={"color": 'black'},
             overlaying='y',
             side='right',
             showticklabels=False,
@@ -150,18 +149,17 @@ def atualiza_grafico(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao6: 
 
         yaxis3=dict(
             # title = 'Data',
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             overlaying='y',
             side='right',
-            # showticklabels=False,
             range=[220, 240],
         ),
 
         yaxis4=dict(
             # title = 'Data',
-            titlefont=dict(color='purple'),
-            tickfont=dict(color='purple'),
+            titlefont={"color": 'purple'},
+            tickfont={"color": 'purple'},
             overlaying='y',
             side='right',
             showticklabels=False,
@@ -169,34 +167,27 @@ def atualiza_grafico(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao6: 
         ),
 
         yaxis5=dict(
-            titlefont=dict(color='black'),
-            tickfont=dict(color='black'),
+            titlefont={"color": 'black'},
+            tickfont={"color": 'black'},
             overlaying='y',
             side='right',
-            # showticklabels=False,
             range=[0, 1],
         ),
 
         autosize=False,
         width=1200,
         height=400,
-        margin=dict(
-            # l=20,
-            # r=20,
-            # b=20,
-            # t=50,
-            # pad=4
-        ),
+        margin={"l": 10, "r": 10, "b": 10, "t": 35, "pad": 50},
 
-        # title_font_size=40,
-        # title = f'{dic_opcoes[selecao3]} - {selecao1}/{selecao2} & Data',
+        legend={"orientation": 'h', "yanchor": 'top',
+                "y": 1, "xanchor": 'left', "x": 0.01},
+
         title=f'{selecao6} de {selecao1}/{selecao2}',
         title_x=0.4,
         xaxis_tickformat=f'%d {selecao1} (%a)<br>%Y - %H:%M:%S',
 
     )
 
-    # , showticklabels=False)
     fig.update_xaxes(showline=True, linewidth=1,
                      linecolor='black', tickangle=45)
     fig.update_yaxes(showline=True, linewidth=1, linecolor='black')
@@ -239,8 +230,8 @@ def atualiza_grafico_tensao(selecao1: str = 'Janeiro', selecao2: int = 2022, sel
     fig.update_layout(
 
         yaxis=dict(
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             side='left',
             range=[220, 240]
         ),
@@ -255,8 +246,8 @@ def atualiza_grafico_tensao(selecao1: str = 'Janeiro', selecao2: int = 2022, sel
 
         yaxis3=dict(
             # title = 'Data',
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             overlaying='y',
             side='right',
             range=[220, 240],
@@ -265,8 +256,11 @@ def atualiza_grafico_tensao(selecao1: str = 'Janeiro', selecao2: int = 2022, sel
         autosize=False,
         width=1200,
         height=400,
-        margin=dict(
-        ),
+        margin={"l": 10, "r": 10, "b": 10, "t": 35, "pad": 50},
+
+        legend={"orientation": 'h', "yanchor": 'top',
+                "y": 1, "xanchor": 'left', "x": 0.01},
+
         title=f'Visualização do gráfico de Tensão do dia {selecao3} de {selecao1}/{selecao2}',
         title_x=0.2,
         xaxis_tickformat=f'%d {selecao1} (%a)<br>%Y - %H:%M:%S',
@@ -322,8 +316,8 @@ def atualiza_grafico_corrente(selecao1: str = 'Janeiro', selecao2: int = 2022, s
     fig.update_layout(
 
         yaxis=dict(
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             # side='left',
             side='right',
             range=[0, 450]
@@ -339,8 +333,8 @@ def atualiza_grafico_corrente(selecao1: str = 'Janeiro', selecao2: int = 2022, s
 
         yaxis3=dict(
             # title = 'Data',
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             overlaying='y',
             side='right',
             range=[0, 450],
@@ -348,8 +342,8 @@ def atualiza_grafico_corrente(selecao1: str = 'Janeiro', selecao2: int = 2022, s
 
         yaxis4=dict(
             # title = 'Data',
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             overlaying='y',
             side='left',
             range=[0, 100],
@@ -358,8 +352,11 @@ def atualiza_grafico_corrente(selecao1: str = 'Janeiro', selecao2: int = 2022, s
         autosize=False,
         width=1200,
         height=400,
-        margin=dict(
-        ),
+        margin={"l": 10, "r": 10, "b": 10, "t": 35, "pad": 50},
+
+        legend={"orientation": 'h', "yanchor": 'top',
+                "y": 1, "xanchor": 'left', "x": 0.01},
+
         title=f'Visualização do gráfico de Corrente do dia {selecao3} de {selecao1}/{selecao2}',
         title_x=0.2,
         xaxis_tickformat=f'%d {selecao1} (%a)<br>%Y - %H:%M:%S',
@@ -407,8 +404,8 @@ def atualiza_grafico_potencia(selecao1: str = 'Janeiro', selecao2: int = 2022, s
     fig.update_layout(
 
         yaxis=dict(
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             side='left',
             range=[-225, 250]
         ),
@@ -423,8 +420,8 @@ def atualiza_grafico_potencia(selecao1: str = 'Janeiro', selecao2: int = 2022, s
 
         yaxis3=dict(
             # title = 'Data',
-            titlefont=dict(color='green'),
-            tickfont=dict(color='green'),
+            titlefont={"color": 'green'},
+            tickfont={"color": 'green'},
             overlaying='y',
             side='right',
             range=[-225, 250],
@@ -433,8 +430,10 @@ def atualiza_grafico_potencia(selecao1: str = 'Janeiro', selecao2: int = 2022, s
         autosize=False,
         width=1200,
         height=400,
-        margin=dict(
-        ),
+        margin={"l": 10, "r": 10, "b": 10, "t": 35, "pad": 50},
+
+        legend={"orientation": 'h', "yanchor": 'top',
+                "y": 1, "xanchor": 'left', "x": 0.01},
         title=f'Visualização do gráfico de Potência do dia {selecao3} de {selecao1}/{selecao2}',
         title_x=0.2,
         xaxis_tickformat=f'%d {selecao1} (%a)<br>%Y - %H:%M:%S',
@@ -502,14 +501,8 @@ with st.sidebar:
 # Navegação das paginas
 if selected == 'Dashboard':
 
-    # # Titulo da pagina
-    # st.title('Processo Seletivo – Analista Júnior I')
-
-    # # Indicador Dinâmico
-    # st.subheader('Estudo de todos os dados comparando Dia vs Horário ')
-
     # Tabela
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns([0.1, 0.2, 0.2, 0.2, 0.2])
 
     with col1:
         selecione_dia = st.selectbox('Dia', dias_unicos)
@@ -541,7 +534,7 @@ if selected == 'Dashboard':
 
 elif selected == 'Tensão':
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([0.1, 0.9])
 
     with col1:
         selecione_dia_tensao = st.selectbox('Dia', dias_unicos)
@@ -565,7 +558,7 @@ elif selected == 'Tensão':
 
 elif selected == 'Potência':
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([0.1, 0.9])
 
     with col1:
         selecione_dia_potencia = st.selectbox('Dia', dias_unicos)
@@ -589,7 +582,7 @@ elif selected == 'Potência':
 
 elif selected == 'Corrente':
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([0.1, 0.9])
 
     with col1:
         selecione_dia_corrente = st.selectbox('Dia', dias_unicos)
