@@ -460,7 +460,7 @@ st.set_page_config(
 
 ### Sidebar Superior ###
 st.sidebar.image('./logo_hvex1.png')
-st.sidebar.title('Processo Seletivo – Analista Júnior I')
+st.sidebar.title('Processo')
 
 # customizar a sidebar
 with st.sidebar:
