@@ -1,4 +1,7 @@
 # Streamlit
+import locale
+from datetime import datetime
+
 import numpy as np
 
 # Analise de Dados
@@ -22,6 +25,9 @@ df_tensao = df[['Tensao Fase A', 'Tensao Fase B', 'Tensao Fase C']]
 meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",
          "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
+dicio_dias = {1: "Seg", 2: "Ter", 3: "Qua",
+              4: "Qui", 5: "Sex", 6: "Sab", 7: "Dom"}
+
 opcoes_corrente = dict([('Corrente Fase A', 1), ('Corrente Fase B', 2),
                        ('Corrente Fase C', 3)])
 opcoes_potencia = dict([('Potência Ativa(P)', 1),
@@ -29,28 +35,15 @@ opcoes_potencia = dict([('Potência Ativa(P)', 1),
 opcoes_tensao = dict(
     [('Tensão Fase A', 1), ('Tensão Fase B', 2), ('Tensão Fase C', 3)])
 
-meses1 = {1: 'Janeiro',
-          2: 'Fevereiro',
-          3: 'Março',
-          4: 'Abril',
-          5: 'Maio',
-          6: 'Junho',
-          7: 'Julho',
-          8: 'Agosto',
-          9: 'Setembro',
-          10: 'Outubro',
-          11: 'Novembro',
-          12: 'Dezembro'
-          }
-
 # obtém uma lista de números de meses únicos a partir do DataFrame
 meses_unicos = df['Data'].dt.month.unique().tolist()
 meses_unicos.sort()
+
+df['dia_da_semana'] = df['Data'].dt.dayofweek + 1
+df['nome_dia_semana'] = df['dia_da_semana'].map(dicio_dias)
+
 anos_unicos = df['Data'].dt.year.unique().tolist()
 dias_unicos = df['Data'].dt.day.unique().tolist()
-
-# mapeia os números dos meses para nomes dos meses e retorna uma lista de nomes de meses únicos
-nome_meses_unicos = list(map(meses1.get, meses_unicos))
 
 
 def atualiza_grafico(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao6: int = 0, selecao3: int = 0, selecao4: int = 0, selecao5: int = 0) -> None:
@@ -71,9 +64,13 @@ def atualiza_grafico(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao6: 
 
     `None`: A função plota um gráfico interativo do pacote Plotly.
     """
-
+    nome_dia = pd.DataFrame()
     filtro_df = df[(df['Data'].dt.month == meses.index(selecao1) + 1) &
                    (df['Data'].dt.year == selecao2) & (df['Data'].dt.day == selecao6)]
+    # df_filtrado = df[df['Data'].dt.day == selecao6]
+    if not filtro_df.empty:
+        nome_dia = filtro_df.iloc[0]['nome_dia_semana']
+
     coluna = df_corrente.columns[selecao3-1]
     coluna2 = df_potencia.columns[selecao4-1]
     coluna3 = df_tensao.columns[selecao5-1]
@@ -184,7 +181,7 @@ def atualiza_grafico(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao6: 
 
         title=f'{selecao6} de {selecao1}/{selecao2}',
         title_x=0.4,
-        xaxis_tickformat=f'%d {selecao1} (%a)<br>%Y - %H:%M:%S',
+        xaxis_tickformat=f'%d {selecao1} ({nome_dia})<br>%Y - %H:%M:%S',
 
     )
 
@@ -197,8 +194,11 @@ def atualiza_grafico(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao6: 
 
 def atualiza_grafico_tensao(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao3: int = 0) -> None:
 
+    nome_dia = pd.DataFrame()
     filtro_df = df[(df['Data'].dt.month == meses.index(selecao1) + 1) &
                    (df['Data'].dt.year == selecao2) & (df['Data'].dt.day == selecao3)]
+    if not filtro_df.empty:
+        nome_dia = filtro_df.iloc[0]['nome_dia_semana']
 
     y1 = filtro_df['Tensao Fase A']
     y2 = filtro_df['Tensao Fase B']
@@ -263,7 +263,7 @@ def atualiza_grafico_tensao(selecao1: str = 'Janeiro', selecao2: int = 2022, sel
 
         title=f'Visualização do gráfico de Tensão do dia {selecao3} de {selecao1}/{selecao2}',
         title_x=0.2,
-        xaxis_tickformat=f'%d {selecao1} (%a)<br>%Y - %H:%M:%S',
+        xaxis_tickformat=f'%d {selecao1} ({nome_dia})<br>%Y - %H:%M:%S',
 
     )
 
@@ -275,8 +275,11 @@ def atualiza_grafico_tensao(selecao1: str = 'Janeiro', selecao2: int = 2022, sel
 
 def atualiza_grafico_corrente(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao3: int = 0) -> None:
 
+    nome_dia = pd.DataFrame()
     filtro_df = df[(df['Data'].dt.month == meses.index(selecao1) + 1) &
                    (df['Data'].dt.year == selecao2) & (df['Data'].dt.day == selecao3)]
+    if not filtro_df.empty:
+        nome_dia = filtro_df.iloc[0]['nome_dia_semana']
 
     y1 = filtro_df['Corrente Fase A']
     y2 = filtro_df['Corrente Fase B']
@@ -359,7 +362,8 @@ def atualiza_grafico_corrente(selecao1: str = 'Janeiro', selecao2: int = 2022, s
 
         title=f'Visualização do gráfico de Corrente do dia {selecao3} de {selecao1}/{selecao2}',
         title_x=0.2,
-        xaxis_tickformat=f'%d {selecao1} (%a)<br>%Y - %H:%M:%S',
+        xaxis_tickformat=f'%d {selecao1} ({nome_dia})<br>%Y - %H:%M:%S',
+
 
     )
 
@@ -371,8 +375,11 @@ def atualiza_grafico_corrente(selecao1: str = 'Janeiro', selecao2: int = 2022, s
 
 def atualiza_grafico_potencia(selecao1: str = 'Janeiro', selecao2: int = 2022, selecao3: int = 0) -> None:
 
+    nome_dia = pd.DataFrame()
     filtro_df = df[(df['Data'].dt.month == meses.index(selecao1) + 1) &
                    (df['Data'].dt.year == selecao2) & (df['Data'].dt.day == selecao3)]
+    if not filtro_df.empty:
+        nome_dia = filtro_df.iloc[0]['nome_dia_semana']
 
     y1 = filtro_df['Potencia Ativa(P)']
     y2 = filtro_df['Potencia Reativa(Q)']
@@ -436,7 +443,7 @@ def atualiza_grafico_potencia(selecao1: str = 'Janeiro', selecao2: int = 2022, s
                 "y": 1, "xanchor": 'left', "x": 0.01},
         title=f'Visualização do gráfico de Potência do dia {selecao3} de {selecao1}/{selecao2}',
         title_x=0.2,
-        xaxis_tickformat=f'%d {selecao1} (%a)<br>%Y - %H:%M:%S',
+        xaxis_tickformat=f'%d {selecao1} ({nome_dia})<br>%Y - %H:%M:%S',
 
     )
 
